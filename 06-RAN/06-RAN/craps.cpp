@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void displayBote(int bote_usuario, int bote_casa, int bote_total);
+void displayBote(float bote_usuario, float bote_casa, float bote_total);
 
 int main()
 {
@@ -42,7 +42,8 @@ int main()
 			
 			getch();
 
-			bote_usuario = ((float)bote_total / 2);
+			bote_usuario = (bote_total / 2);
+			cout<<bote_usuario;
 			bote_total = bote_usuario + bote_casa;
 
 			displayBote(bote_usuario, bote_casa, bote_total);
@@ -59,7 +60,7 @@ int main()
 	return 0;
 }
 
-void displayBote(int bote_usuario, int bote_casa, int bote_total)
+void displayBote(float bote_usuario, float bote_casa, float bote_total)
 {
 	cout<<"\nBote total: "<<bote_total<<" pesos\tBote propio: "<<bote_usuario<<" pesos\tBote casa: "<<bote_casa<<" pesos\n";
 }
