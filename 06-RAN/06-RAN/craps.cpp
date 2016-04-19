@@ -1,9 +1,3 @@
-/*
-    IMPORTANTE
-    Ejercicio para el Domingo 24 de Abril
-
-*/
-
 #include <iostream>
 #include <math.h>
 #include <time.h>
@@ -48,7 +42,7 @@ int main()
 			
 			getch();
 
-			bote_usuario += (bote_total / 2);
+			bote_usuario = ((float)bote_total / 2);
 			bote_total = bote_usuario + bote_casa;
 
 			displayBote(bote_usuario, bote_casa, bote_total);
