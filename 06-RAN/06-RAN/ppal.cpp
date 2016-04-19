@@ -6,13 +6,14 @@
 
 #include <iostream>
 #include <stdio.h>
+#include <conio.h>
 #include <time.h>
 
 using namespace std;
 
 int main()
 {
-	int a = 0, b = 0, pet_flor = 0;
+	int a = 0, b = 0, pet_flor = 0, guess = 0;
 	srand(time(NULL));
 	int dado[5];
 	
@@ -41,7 +42,10 @@ int main()
 	{
 		cout<<"  "<<dado[i]<<" \t";
 	}
-	cout<<" \t"<<pet_flor<<"\n";
+	cout<<"\nCuantos petalos crees que hayan? ";
+	cin<<guess;
+	cout<<"\nPresiona ENTER";
+	getch();
 
 	return 0;
 }
