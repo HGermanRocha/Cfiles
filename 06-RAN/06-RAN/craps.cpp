@@ -42,9 +42,8 @@ int main()
 			
 			getch();
 
+            bote_total = bote_usuario + bote_casa;
 			bote_usuario = (bote_total / 2);
-			cout<<bote_usuario;
-			bote_total = bote_usuario + bote_casa;
 
 			displayBote(bote_usuario, bote_casa, bote_total);
 		}
