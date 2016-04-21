@@ -1,7 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include <time.h>
-#include <conio.h>
+#include <cconio>
 
 using namespace std;
 
@@ -42,7 +42,7 @@ int main()
 			
 			getch();
 
-            bote_total = bote_usuario + bote_casa;
+        	bote_total = bote_usuario + bote_casa;
 			bote_usuario = (bote_total / 2);
 
 			displayBote(bote_usuario, bote_casa, bote_total);
