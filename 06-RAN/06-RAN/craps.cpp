@@ -48,7 +48,7 @@ int main()
 			
 			dado1 = getRandomNumber();					//Valor random para el 1er dado. Aquí se llama la funcion getRandomNumber() explicado al final del código
 			
-			cout<<"\t\tJUGEMOS CRAPS\n";
+			cout<<"\t\tJUGUEMOS CRAPS\n";
 			
 			bote_total = bote_usuario + bote_casa;		//bote_total es la variable que almacena la apuesta de la casa y del usuario o jugador
 			
@@ -303,23 +303,6 @@ int getRandomNumber()
 	
 	return number;	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*
