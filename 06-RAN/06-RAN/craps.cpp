@@ -52,7 +52,7 @@ int main()
 			
 			bote_total = bote_usuario + bote_casa;		//bote_total es la variable que almacena la apuesta de la casa y del usuario o jugador
 			
-			ganancias_casa = bote_casa;
+			ganancias_casa = bote_casa;					//Esta variable guarda los valores del capital de la casa para utilizarlos posteriormente
 			
 			displayBote(bote_usuario, bote_total);		//Se llama la función displayBote() explicada al final del código
 	
@@ -79,7 +79,7 @@ int main()
 				
 				if(checkContinue(respuesta))								//Se llama la funcion checkContinue() explicada al final del código
 				{
-					acum_ganancias -= (ganancias_casa - bote_usuario) + 5;	//Si el jugador desea seguir jugando la casa pierde. Aqui se define la pérdida
+					acum_ganancias -= (ganancias_casa - bote_usuario) + 5;	//Si el jugador desea seguir jugando la casa pierde. Aqui se define la pérdida. Note que se le suman 5 a la pérdida que corresponden a los 5 pesos más que debe ponerl la casa al perder.
 					
 					bote_casa += 5;							//Si el jugador gana la casa tiene que poner 5 pesos para la siguiente ronda
 					system("cls");							//Para mayor información CHECAR LA DOCUMENTACIÓN DEL PROGRAMA en la sección "Sistema de apuestas"
@@ -99,41 +99,40 @@ int main()
 				cout<<"Perdiste!\n\nDesea continuar apostando? (si/no)\n";	
 				cin>>respuesta;
 				
-				acum_ganancias += bote_usuario;
+				acum_ganancias += bote_usuario;				//Si el jugador pierde la casa se queda con el capital del jugador				
 				
 				bote_casa += bote_usuario;					//Si el jugador pierde, entonces la casa gana y su capital ahora es igual a todo el bote_total 
 				bote_usuario = 0;							//Como el jugador perdió, su capital ahora es de 0 puesto que la casa gana todo el capital							
 				
 				if(checkContinue(respuesta))
 				{
-					bote_usuario += 5;
+					bote_usuario += 5;						//Si el jugador quiere seguir jugando entonces debe apostar 5 pesos de nuevo
 					system("cls");
 				}
 				
 				else if (checkContinue(respuesta) == false)
 				{
-					helper = 0;
+					helper = 0;								//Ya que el jugador desea salir helper deberá ser 0 para cerrar el programa
 					break;
 				}
 				
 			}
 			else
 			{
-				objetivo = suma;
-				tiro += 1;
-			
-				break;
+				objetivo = suma;			//Si la suma de los dados no da ninguna de las opciones anteriores entonces se define la suma como un "objetivo" y se pasa a una segunda fase fuera de este ciclo
+				tiro += 1;					//Esta variable define la nueva fase en el juego	
+				break;						//Este "break" termina el ciclo actual para empezar con uno nuevo
 			}
 					
 		}
 		
 		if(tiro > 1)
 		{
-			cout<<"Su objetivo es "<< objetivo;
+			cout<<"Su objetivo es "<< objetivo;			
 			
 			while(true)
 			{
-				dado1 = getRandomNumber();
+				dado1 = getRandomNumber();  							//Valor random para el 1er dado en el tiro n. 
 				
 				cout<<"\n\nPresione ENTER para lanzar de nuevo\n";
 				getch();
@@ -147,15 +146,15 @@ int main()
 				
 				cout<<"Tiro #"<<tiro<<"\n\nEl resultado de sus dados es:\n";
 				
-				dado2 = getRandomNumber();
+				dado2 = getRandomNumber();											//Valor random para el 2do dado en el tiro n. 
 				
 				cout<<"Dado 1: "<<dado1<<"\nDado 2: "<<dado2<<"\n\n";
 				
-				suma = dado1 + dado2;
+				suma = dado1 + dado2;			
 				
-				if(suma == objetivo)
+				if(suma == objetivo)									//Si la suma de los dados es igual al objetivo definido en el 1er tiro entonces el jugador gana
 				{
-					bote_usuario = (bote_total / 2);
+					bote_usuario = (bote_total / 2);					//Misma definición que en el 1er tiro al ganar el usuario/jugador
 					bote_casa = (bote_total / 2);
 					
 					cout<<"Ganaste!\nBote propio: "<<bote_usuario<<" Pesos\nDesea continuar apostando? (si/no)\n";	
@@ -163,36 +162,36 @@ int main()
 				
 					if(checkContinue(respuesta))
 					{
-						acum_ganancias -= (ganancias_casa - bote_usuario) + 5;	
+						acum_ganancias -= (ganancias_casa - bote_usuario) + 5;		//Misma dinámica que arriba en el 1er tiro
 						
 						bote_casa += 5;
-						helper = 1;
+						helper = 1;										
 					}
 					else if(checkContinue(respuesta) == false)
 					{
-						acum_ganancias -= (ganancias_casa - bote_usuario);
-						
+						acum_ganancias -= (ganancias_casa - bote_usuario);			//Misma dinámica que arriba en el 1er tiro
+												
 						helper = 0;
 					}
 					
 					break;
 				}
-				else if (suma == 7)
+				else if (suma == 7)									//Si la suma de los dados es igual a 7 entonces el usuario/jugador pierde
 				{
 					cout<<"Perdiste!\n\nDesea continuar apostando? (si/no)\n";
 					cin>>respuesta;
 					
-					acum_ganancias += bote_usuario;
+					acum_ganancias += bote_usuario;						//Misma dinámica que arriba en el 1er tiro al perder el jugador
 					
 					bote_casa += bote_usuario;
 					bote_usuario = 0;
 					
-					if(checkContinue(respuesta))
+					if(checkContinue(respuesta))						//Misma dinámica que arriba en el 1er tiro	
 					{
 						bote_usuario += 5;
 						helper = 1;
 					}
-					else if(checkContinue(respuesta) == false)
+					else if(checkContinue(respuesta) == false)			//Misma dinámica que arriba en el 1er tiro
 					{
 						helper = 0;
 					}
@@ -201,21 +200,24 @@ int main()
 				}
 				else
 				{
-					random = getRandomNumber() - 1;
-					cout<<expresiones[random];
+					random = getRandomNumber() - 1;						//Se muestra un mensaje al usuario de forma aleatoria apuntando a los valores x
+					cout<<expresiones[random];							//del arreglo "expresiones" utlizando la funcion getRandomNumber() para obtener valores random
 				}
 				
-				tiro += 1;
-			}	
+				tiro += 1;												//Si el la suma de los dados no es igual a 7 ni al objetivo el jugador tira de nuevo
+			}															//y se aumenta la variable tiro
 			
 		}
 		
+		//Al finalizar los ciclos, si el jugador no quiere continuar se definió la variable helper como igual a o para que cerrara el loop infinito del 
+		//juego y por ende avanzara a la sección final del código
 		if(helper == 0)
 		{
 			break;
 		}
 	}
 	
+	//Despliegue de un menú para visualizar los resultados del juego	
 	while(accion != 0)
 	{
 		system("cls");
@@ -240,8 +242,8 @@ int main()
 				cout<<bote_total<<" pesos\n";			
 				break;
 			case 3:
-				cout<<"\t\t***REGISTRO DE GANANCIAS***\n\n";
-				cout<<acum_ganancias<<" pesos\n\n\n\n\n";
+				cout<<"\t\t***REGISTRO DE GANANCIAS***\n\n";			//EL menú contiene una opción secreta para el administrador. Esta opción
+				cout<<acum_ganancias<<" pesos\n\n\n\n\n";				//le permite conocer las ganancias de la casa a lo largo de la partida
 				break;
 			default:
 				cout<<"Opcion invalida!\n";
@@ -268,9 +270,9 @@ bool checkContinue(string word)
 {
 	bool accepted;
 	
-	if(word == "si" || word == "Si" || word == "sI" || word == "SI")
-	{
-		accepted = true;
+	if(word == "si" || word == "Si" || word == "sI" || word == "SI")		//Si el usuario/jugador ingresa alguna de las cadenas de la condición
+	{																		//entonces significa que deseea continuar apostando y la variable accepted
+		accepted = true;													//toma el valor de true
 	}
 	else
 	{
@@ -281,18 +283,26 @@ bool checkContinue(string word)
 }
 
 //Esta funcion genera un numero al azar entero y lo regresa al lugar donde
-//la están llamando
+//la están llamando.
+
+//							***NOTA IMPORTANTE***
+//La función regresa valores enteros al azar basados en la hora del sistema (srand(time(NULL)))
+//así que en el código al declararse los valores de los dados seguidos como se muestra:
+//dado1 = getRandomNumber()
+//dado2 = getRandomNumber()
+//los valores de los dados eran siempre los mismos porque la función les regresaba el valor al azar basado en la misma hora del sistema
+//por lo cual separé la declaración de los valores de los dados para poder obtener horas distintas del sistema a la hora de ser declaradas
+//y así obtener valores distintos.
+ 
 int getRandomNumber()
 {
 	int number;
-	srand(time(NULL));
+	srand(time(NULL));					
 		
 	number = 1 + rand()%6;
 	
 	return number;	
 }
-
-
 
 
 
