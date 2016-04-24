@@ -99,10 +99,10 @@ int main()
 				cout<<"Perdiste!\n\nDesea continuar apostando? (si/no)\n";	
 				cin>>respuesta;
 				
-				bote_casa += bote_usuario;					//Si el jugador pierde, entonces la casa gana y su capital ahora es igual a todo el bote_total 
-				bote_usuario = 0;							//Como el jugador perdió, su capital ahora es de 0 puesto que la casa gana todo el capital
+				acum_ganancias += bote_usuario;
 				
-				acum_ganancias += bote_usuario;							
+				bote_casa += bote_usuario;					//Si el jugador pierde, entonces la casa gana y su capital ahora es igual a todo el bote_total 
+				bote_usuario = 0;							//Como el jugador perdió, su capital ahora es de 0 puesto que la casa gana todo el capital							
 				
 				if(checkContinue(respuesta))
 				{
@@ -182,10 +182,10 @@ int main()
 					cout<<"Perdiste!\n\nDesea continuar apostando? (si/no)\n";
 					cin>>respuesta;
 					
+					acum_ganancias += bote_usuario;
+					
 					bote_casa += bote_usuario;
 					bote_usuario = 0;
-					
-					acum_ganancias += bote_usuario;
 					
 					if(checkContinue(respuesta))
 					{
@@ -291,30 +291,6 @@ int getRandomNumber()
 	
 	return number;	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
