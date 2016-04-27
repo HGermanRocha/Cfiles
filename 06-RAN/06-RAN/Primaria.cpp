@@ -1,5 +1,4 @@
 #include<iostream>
-#include<conio.h>
 #include<string>
 #include<ctime>
 #include<stdlib.h>
@@ -29,7 +28,7 @@ int main()
 	cin>>nombre;
 	
 	cout<<"\n\nMuchas gracias, para comenzar presiona ENTER\n";
-	getch();
+	system("pause");
 
 	while(true)
 	{
@@ -59,7 +58,7 @@ int main()
 		cout<<"Desea continuar? (si/no)";
 		cin>>seguir;
 
-		getch();
+		system("pause");
 	}
 
 	return 0;
@@ -90,6 +89,5 @@ int checkRespuesta(int input)
 }
 bool checkRespuesta(string word)
 {
-	if(word == "si"|| word)
 
 }
