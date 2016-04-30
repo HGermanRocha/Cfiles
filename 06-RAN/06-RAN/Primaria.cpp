@@ -28,13 +28,12 @@ int main()
 	cin>>nombre;
 	
 	cout<<"\n\nMuchas gracias, para comenzar presiona ENTER\n";
-	system("pause");
+	cin.get();
 
 	while(true)
 	{
 		ejercicio++;
 
-		system("cls");
 
 		x = 1 + rand()%10;
 		y = 1 + rand()%10;
@@ -58,7 +57,7 @@ int main()
 		cout<<"Desea continuar? (si/no)";
 		cin>>seguir;
 
-		system("pause");
+		cin.get();
 	}
 
 	return 0;
