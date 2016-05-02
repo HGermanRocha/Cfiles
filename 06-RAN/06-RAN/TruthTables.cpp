@@ -14,7 +14,8 @@
 
 using namespace std;
 
-void linea(int no_prop);
+void resultados(string symbol, int array[][5]);
+void linea(int no_prop, char sym);
 void displayTable(string symbol, int no_prop);
 
 int main()
@@ -27,8 +28,6 @@ int main()
 		system("cls");
 		
 		cout<<"\t\tGENERADOR DE TABLAS DE VERDAD\n\n";
-		cout<<"Ingrese el numero de proposiciones: ";
-		cin>>no_prop;
 		
 		cout<<"\n\nSeleccione la tabla de verdad que desea ver\n";
 		cout<<"1.Conjuncion (^)\n";
@@ -38,6 +37,11 @@ int main()
 		cout<<"5.Salir\n";
 		cout<<"\nOp:_";
 		cin>>opc;
+		if(opc != 5)
+		{
+			cout<<"\n\nIngrese el numero de proposiciones: ";
+			cin>>no_prop;
+		}
 					
 		switch(opc)
 		{
@@ -90,9 +94,14 @@ void displayTable(string symbol, int no_prop)
 {
 	char vocabulary[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 	char letters[no_prop];
-	double size = 0;
-	int divisor = 1;
-	int dimension = 0, counter = 0;
+	char tipo;
+	bool condi = true;
+	double size = pow(2, no_prop);
+	int divisor = 1, helper = 0;
+	int dimension = 0, counter = 0, counter2 = 0;
+	int values[(int) size][no_prop];
+	bool verdad[(int) size][no_prop];
+	int resultado[(int) size];
 	
 	//Establecimiento de las letras para las proposiciones
 	for(int i = 0; i < no_prop; i++)
@@ -103,7 +112,8 @@ void displayTable(string symbol, int no_prop)
 	//-------------------TITULO----------------------------
 	
 	//Función que imprime una línea arreglada
-	linea(no_prop);
+	tipo ='_';
+	linea(no_prop, tipo);
 	
 	//Proposiciones
 	for(int i = 0; i < no_prop; i++)
@@ -126,14 +136,11 @@ void displayTable(string symbol, int no_prop)
 	cout<<" |\n";
 	
 	//-------------CONTENIDO--------------
-	//Linea que defnine el techo del contenido 	
-	linea(no_prop);
-	
-	size = pow(2, no_prop);
+	//Linea que defnine el techo del contenido
+	tipo = '-'; 	
+	linea(no_prop, tipo);
 	
 	//INICIALIZACIÓN DE LOS VALORES DE LA TABLA
-	int values[(int) size][no_prop];
-	
 	for(int i = 0; i < no_prop; i++)
 	{
 		for(int j = 0; j < ((int) size); j++)
@@ -161,36 +168,178 @@ void displayTable(string symbol, int no_prop)
 		divisor += 1;
 	}
 	
+	//Señalamiento de los valores de verdad de 0 y 1
 	for(int i = 0; i < ((int) size); i++)
 	{
 		for(int j = 0; j < no_prop; j++)
-		{
-			cout<<values[i][j]<<"  ";
+		{			
+			if(values[i][j] == 1)
+			{
+				verdad[i][j] = true;
+			}
+			else
+			{
+				verdad[i][j] = false;
+			}
 		}
+	}
+	
+	//----------------RESULTADO DE LAS TABLAS DE VERDAD SEGÚN SU RESPECTIVO TIPO (^, V, =>, <=>)---------------------------
+	//CÁLCULO DE LAS CONJUNCIONES
+	if(symbol == "^")
+	{
+		for(int i = 0; i < ((int) size); i++)
+		{
+			for(int j = 0; j < no_prop; j++)
+			{			
+				if(verdad[i][j])
+				{
+					helper += 1;
+				}
+				else
+				{
+					helper -= 1;
+				}
+			}
+			
+			if(helper == no_prop)
+			{
+				resultado[i] = 1;
+			}
+			else
+			{
+				resultado[i] = 0;
+			}
+			helper = 0;
+		}
+	}
+	//CALCULO DE LAS DISYUNCIONES
+	else if(symbol == "v")
+	{
+		for(int i = 0; i < ((int) size); i++)
+		{
+			for(int j = 0; j < no_prop; j++)
+			{			
+				if(verdad[i][j])
+				{
+					helper += 1;
+				}
+			}
+			
+			if(helper >= 1)
+			{
+				resultado[i] = 1;
+			}
+			else
+			{
+				resultado[i] = 0;
+			}
+			helper = 0;
+		}
+	}
+	//CÁLCULO DE LAS IMPLICACIONES
+	else if(symbol == "=>")
+	{	
+		for(int i = 0; i < ((int) size); i++)
+		{
+			condi = verdad[i][0];
+			
+			for(int j = 0; j < no_prop - 1; j++)
+			{			
+				if(condi && verdad[i][j + 1])
+				{
+					condi = true;
+				}
+				else if(condi && !verdad[i][j + 1])
+				{
+					condi = false;
+				}
+				else if(!condi && verdad[i][j + 1])
+				{
+					condi = true;
+				}
+				else if(!condi && !verdad[i][j + 1])
+				{
+					condi = true;
+				}
+			}
+			
+			if(condi == true)
+			{
+				resultado[i] = 1;
+			}
+			else
+			{
+				resultado[i] = 0;
+			}
+		}
+	}
+	//CÁLCULO DE LAS BICONDICIONALES
+	else if(symbol == "<=>")
+	{
+		for(int i = 0; i < ((int) size); i++)
+		{
+			for(int j = 0; j < no_prop - 1; j++)
+			{			
+				if(values[i][j] == values[i][j + 1])
+				{
+					helper += 1;
+				}
+			}
+			
+			if(helper == no_prop - 1)
+			{
+				resultado[i] = 1;
+			}
+			else
+			{
+				resultado[i] = 0;
+			}
+			helper = 0;
+		}
+	}
+	
+	//SALIDA DE LOS VALORES DE LA TABLA PARA EL USUARIO
+	for(int i = 0; i < ((int) size); i++)
+	{
+		for(int j = 0; j < no_prop; j++)
+		{			
+			cout<<"|  "<<values[i][j]<<"  ";
+		}
+		cout<<" |  \t\t"<<resultado[i]<<"\t |";
 		cout<<endl;
 	}
-		
-	cout<<"|  ";
-		
+	
+	//Dibuja una línea
+	tipo = '-';
+	linea(no_prop, tipo);
+	
 	getch();
 	
 }
 
 //Funcion que imprime una linea basada en el numero de proposiciones, expresiones, etc.
-void linea(int no_prop)
+void linea(int no_prop, char tipo)
 {
 	//Espacio para cada proposición
 	for(int i = 0; i < (no_prop * 7); i++)
 	{
-		cout<<"-";
+		cout<<tipo;
 	}	
 	
 	//Espacio para la expresión
 	for(int i = 0; i < (no_prop * 6); i++)
 	{
-		cout<<"-";
+		cout<<tipo;
 	}
 	
 	//New line
 	cout<<"\n";
+}
+
+//Función que determina el resultado de cada operación
+void resultados(string symbol, int array[][5])
+{
+	cout<<symbol;
+	
 }
