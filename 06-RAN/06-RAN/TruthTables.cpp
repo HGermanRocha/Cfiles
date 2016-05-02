@@ -14,8 +14,9 @@
 
 using namespace std;
 
+string blankSpaces(int no_prop);
 void resultados(string symbol, int array[][5]);
-void linea(int no_prop, char sym);
+void linea(int no_prop, char tipo, string symbol);
 void displayTable(string symbol, int no_prop);
 
 int main()
@@ -37,6 +38,7 @@ int main()
 		cout<<"5.Salir\n";
 		cout<<"\nOp:_";
 		cin>>opc;
+		
 		if(opc != 5)
 		{
 			cout<<"\n\nIngrese el numero de proposiciones: ";
@@ -96,6 +98,7 @@ void displayTable(string symbol, int no_prop)
 	char letters[no_prop];
 	char tipo;
 	bool condi = true;
+	string blankSpace;
 	double size = pow(2, no_prop);
 	int divisor = 1, helper = 0;
 	int dimension = 0, counter = 0, counter2 = 0;
@@ -113,7 +116,7 @@ void displayTable(string symbol, int no_prop)
 	
 	//Función que imprime una línea arreglada
 	tipo ='_';
-	linea(no_prop, tipo);
+	linea(no_prop, tipo, symbol);
 	
 	//Proposiciones
 	for(int i = 0; i < no_prop; i++)
@@ -121,6 +124,7 @@ void displayTable(string symbol, int no_prop)
 		cout<<"|  "<<letters[i]<<"  ";
 	}
 	
+	//Expresión
 	cout<<"|  ";
 	for(int i = 0; i < no_prop; i++)
 	{
@@ -133,12 +137,12 @@ void displayTable(string symbol, int no_prop)
 		
 		cout<<symbol<<"  ";
 	}
-	cout<<" |\n";
+	cout<<"  |\n";
 	
 	//-------------CONTENIDO--------------
 	//Linea que defnine el techo del contenido
 	tipo = '-'; 	
-	linea(no_prop, tipo);
+	linea(no_prop, tipo, symbol);
 	
 	//INICIALIZACIÓN DE LOS VALORES DE LA TABLA
 	for(int i = 0; i < no_prop; i++)
@@ -300,46 +304,66 @@ void displayTable(string symbol, int no_prop)
 	}
 	
 	//SALIDA DE LOS VALORES DE LA TABLA PARA EL USUARIO
+	blankSpace = blankSpaces(no_prop);
+	
 	for(int i = 0; i < ((int) size); i++)
 	{
 		for(int j = 0; j < no_prop; j++)
 		{			
 			cout<<"|  "<<values[i][j]<<"  ";
 		}
-		cout<<" |  \t\t"<<resultado[i]<<"\t |";
+		cout<<"|"<<blankSpace<<resultado[i]<<blankSpace<<"|";
 		cout<<endl;
 	}
 	
 	//Dibuja una línea
 	tipo = '-';
-	linea(no_prop, tipo);
+	linea(no_prop, tipo, symbol);
 	
 	getch();
 	
 }
 
 //Funcion que imprime una linea basada en el numero de proposiciones, expresiones, etc.
-void linea(int no_prop, char tipo)
+void linea(int no_prop, char tipo, string symbol)
 {
-	//Espacio para cada proposición
-	for(int i = 0; i < (no_prop * 7); i++)
-	{
-		cout<<tipo;
-	}	
+	int size = ceil(12.5 * no_prop);
 	
-	//Espacio para la expresión
-	for(int i = 0; i < (no_prop * 6); i++)
+	if(symbol == "=>")
 	{
-		cout<<tipo;
+		for(int i = 0; i < size + (1 * (no_prop - 1)); i++)
+		{
+			cout<<tipo;
+		}	
+	}
+	else if(symbol == "<=>")
+	{
+		for(int i = 0; i < size + (2 * (no_prop - 1)); i++)
+		{
+			cout<<tipo;
+		}	
+	}
+	else
+	{
+		for(int i = 0; i < size; i++)
+		{
+			cout<<tipo;
+		}
 	}
 	
 	//New line
 	cout<<"\n";
 }
 
-//Función que determina el resultado de cada operación
-void resultados(string symbol, int array[][5])
+string blankSpaces(int no_prop)
 {
-	cout<<symbol;
+	string word = "";
+	int x = ceil(no_prop  * 2.5);
 	
+	for(int i = 0; i < x; i++)
+	{
+		word += " ";
+	}
+	
+	return word;
 }
