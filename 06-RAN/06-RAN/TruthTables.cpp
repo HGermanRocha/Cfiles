@@ -14,7 +14,7 @@
 
 using namespace std;
 
-string blankSpaces(int no_prop);
+string blankSpaces(int no_prop, string symbol);
 void resultados(string symbol, int array[][5]);
 void linea(int no_prop, char tipo, string symbol);
 void displayTable(string symbol, int no_prop);
@@ -304,7 +304,7 @@ void displayTable(string symbol, int no_prop)
 	}
 	
 	//SALIDA DE LOS VALORES DE LA TABLA PARA EL USUARIO
-	blankSpace = blankSpaces(no_prop);
+	blankSpace = blankSpaces(no_prop, symbol);
 	
 	for(int i = 0; i < ((int) size); i++)
 	{
@@ -355,10 +355,23 @@ void linea(int no_prop, char tipo, string symbol)
 	cout<<"\n";
 }
 
-string blankSpaces(int no_prop)
+string blankSpaces(int no_prop, string symbol)
 {
 	string word = "";
-	int x = ceil(no_prop  * 2.5);
+	int x;
+	
+	if(symbol == "=>")
+	{
+		x = ceil(((5 * no_prop) + (2 * (no_prop - 1))) / 2);
+	}
+	else if(symbol == "<=>")
+	{
+		x = ceil(((5 * no_prop) + (3 * (no_prop - 1))) / 2);
+	}
+	else
+	{
+		x = ceil(((5 * no_prop) + (1 * (no_prop - 1))) / 2);
+	}
 	
 	for(int i = 0; i < x; i++)
 	{
