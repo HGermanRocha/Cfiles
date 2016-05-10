@@ -111,3 +111,22 @@ void moda(int freq[], int sol[])
 	cout<<"\nLa moda es el valor que se repite con mayor frecuencia\n Para este cuestionario la moda es "<<valormoda<<" que se repite "<<mayor<<" veces.\n\n\n";
 
 }
+
+//Definición de la función Bubble Sort para ordenar los arreglos
+void bubbleSort(int a [])
+{
+	int pasada, temp = 0;
+
+	for(pasada = 1; pasada < SIZE; pasada++)
+	{
+		for(int j = 0; j <= SIZE; j++)
+		{
+			if(a[j] < a[j + 1])
+			{
+				temp = a[j];
+				a[j] = a[j + 1];
+				a[j + 1] = temp;
+			}
+		}
+	}
+}
