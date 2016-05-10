@@ -132,7 +132,7 @@ void bubbleSort(int a [])
 }
 
 //Definición de la función para imprimir los arreglos
-void impAtrr(int a[])
+void impArr(int a[])
 {
 	for(int j = 0; j < SIZE; j++)
 	{
