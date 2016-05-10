@@ -130,3 +130,17 @@ void bubbleSort(int a [])
 		}
 	}
 }
+
+//Definición de la función para imprimir los arreglos
+void impAtrr(int a[])
+{
+	for(int j = 0; j < SIZE; j++)
+	{
+		if(j%20 == 0)
+		{
+			cout<<endl;
+		}
+
+		cout<<a[j]<<"  ";
+	}
+}
