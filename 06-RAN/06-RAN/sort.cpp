@@ -11,8 +11,8 @@ using namespace std;
 void media(int[]);
 void mediana(int[]);
 void moda(int[], int[]);
-void bubblesort(int[]);
-void imprArr(int[]);
+void bubbleSort(int[]);
+void impArr(int[]);
 
 
 //Definición del cuerpo principal
@@ -49,6 +49,23 @@ void media(int sol[])
 	}
 
 	cout<<"La media es el promedio de todos los dados.\nLa media para este cuestionario es: "<<total<<" / "<<SIZE<<" = "<<(float)total/SIZE;
+
+	getch();
+}
+
+//Definición de la función mediana
+void mediana(int sol[])
+{
+	cout<<"\n\n********************\n\tMediana\n*********************\n\nLas respuestas sin organizar son: \n";
+
+	impArr(sol);
+	bubbleSort(sol);
+
+	cout<<"\n\nEl arreglo ordenado es: ";
+
+	impArr(sol);
+	
+	cout<<"\n\nLa mediana es el elemento "<<SIZE / 2<<" del total de "<<SIZE<<" respuestas ordenadas.\nPara este cuestionario la mediana es: "<<sol[SIZE / 2];
 
 	getch();
 }
