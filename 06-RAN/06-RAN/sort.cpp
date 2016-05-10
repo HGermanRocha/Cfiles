@@ -36,3 +36,19 @@ int main()
 
 	return 0;
 }
+
+//Definición de la función de media
+void media(int sol[])
+{
+	int total = 0, temp = 0;
+
+	cout<<"******************\n\tMedia*********************\n\n";
+	for(int j = 0; j < SIZE; j++)
+	{
+		total += sol[j];
+	}
+
+	cout<<"La media es el promedio de todos los dados.\nLa media para este cuestionario es: "<<total<<" / "<<SIZE<<" = "<<(float)total/SIZE;
+
+	getch();
+}
