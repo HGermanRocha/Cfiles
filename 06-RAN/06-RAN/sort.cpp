@@ -69,3 +69,45 @@ void mediana(int sol[])
 
 	getch();
 }
+
+//Definicion de la moda
+void moda(int freq[], int sol[])
+{
+	int rating, mayor = 0, valormoda = 0;
+
+	cout<<"\n\n***********************\n\tModa\n************************\n";
+
+	for(rating = 1; rating <= 9; rating++)
+	{
+		freq[rating] = 0;
+	}
+
+	for(int j = 0; j < SIZE; j++)
+	{
+		++freq[sol[j]];
+	}
+
+	cout<<"\nRespuestas\tFrecuencia\tHiostograma\n";
+
+	for(rating = 1; rating <= 9; rating++)
+	{
+		cout<<rating<<"\t"<<freq[rating]<<"\t";
+
+		if(freq[rating] > mayor)
+		{
+			mayor = freq[rating];
+			valormoda = rating;
+		}
+
+		for(int h = 1; h <= freq[rating]; h++)
+		{
+			cout<<"* ";
+		}
+
+		cout<<endl;
+
+	}
+
+	cout<<"\nLa moda es el valor que se repite con mayor frecuencia\n Para este cuestionario la moda es "<<valormoda<<" que se repite "<<mayor<<" veces.\n\n\n";
+
+}
