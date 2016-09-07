@@ -76,6 +76,7 @@ int main()
 									{
 										types[linea1[z]] = types[linea1[z + 1]]; 
 									}
+									types[18] = ' ';
 									
 									for(int i = z; i < 5; i++)
 									{
