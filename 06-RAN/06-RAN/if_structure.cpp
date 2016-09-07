@@ -59,11 +59,39 @@ int main()
                           cout<<endl<<a<<" "<<b<<" "<<d<<" "<<c<<" "<<e<<endl; 
                       }
                  }
+                 else
+                 {
+                     cout<<endl<<a<<" "<<b<<" "<<d<<" "<<e<<" "<<c<<endl; 
+                 }
              }
         }
         else
         {
-            if()
+            if(b > d)
+            {
+                 if(d > e)
+                 {
+                     cout<<endl<<a<<" "<<c<<" "<<b<<" "<<d<<" "<<e<<endl; 
+                 }
+                 else if(e > d)
+                 {
+                     cout<<endl<<a<<" "<<c<<" "<<b<<" "<<e<<" "<<d<<endl; 
+                 }
+            }
+            else if(e > b)
+            {
+                if(b > d)
+                {
+                     cout<<endl<<a<<" "<<c<<" "<<e<<" "<<b<<" "<<d<<endl;
+                }
+            }
+            else
+            {
+                if(e > d)
+                {
+                    cout<<endl<<a<<" "<<c<<" "<<e<<" "<<d<<" "<<b<<endl; 
+                }
+            }
         }
     }
 
