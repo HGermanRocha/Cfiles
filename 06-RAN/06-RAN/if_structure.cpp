@@ -50,16 +50,20 @@ int main()
              {
                  if(c > e)
                  {
-                      if(d > c)
+                      if(d > b)
                       {
                           cout<<endl<<a<<" "<<d<<" "<<b<<" "<<c<<" "<<e<<endl;
                       }
-                      else if()
+                      else if(b > d)
                       {
-                           
+                          cout<<endl<<a<<" "<<b<<" "<<d<<" "<<c<<" "<<e<<endl; 
                       }
                  }
              }
+        }
+        else
+        {
+            if()
         }
     }
 
