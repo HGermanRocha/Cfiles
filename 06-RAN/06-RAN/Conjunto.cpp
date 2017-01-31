@@ -8,14 +8,14 @@ using namespace std;
 class Conjunto
 {
 	public:
-	int array[50] = {0};
-	int length, counter = 0, posicion;
-	void insertar(int numero, int pos); 
-	void obtenerLongitud();
-	void eliminar(int numero);
-	void obtenerPosicion(int num);
-	void imprimir();
-	void acomodarPosiciones();
+		int array[50] = {0};
+		int length, counter = 0, posicion;
+		void insertar(int numero, int pos); 
+		void obtenerLongitud();
+		void eliminar(int numero);
+		void obtenerPosicion(int num);
+		void imprimir();
+		void acomodarPosiciones();
 };
 
 void Conjunto::insertar(int numero, int pos)
@@ -111,7 +111,7 @@ int main()
 				cout<<"Ingrese el numero que desea insertar: ";
 				cin>>num;
 				
-				cout<<Obj.getNumber(num);
+				//cout<<Obj.getNumber(num);
 								
 				Obj.insertar(num, p);
 				
@@ -144,4 +144,4 @@ int main()
 	
 	system("cls");
 	return 0;	
-}/
+}
