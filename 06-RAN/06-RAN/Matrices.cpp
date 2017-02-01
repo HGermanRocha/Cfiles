@@ -47,11 +47,11 @@ class Matriz
 			
 			return true;
 		}
-		int tamanioEnM()
+		int filas()
 		{
 			return m;
 		}
-		int tamanioEnN()
+		int columnas()
 		{
 			return n;
 		}
@@ -86,9 +86,9 @@ class Matrices
 			
 			Matriz m3(5, 5);
 			
-			for(int i = 0; i < x.tamanioEnM(); i++)
+			for(int i = 0; i < x.filas(); i++)
 			{
-				for(int j = 0; j < x.tamanioEnN(); j++)
+				for(int j = 0; j < x.columnas(); j++)
 				{
 					suma = x.obtenerElemento(i, j) + y.obtenerElemento(i, j);		
 					m3.asignarElemento(i, j, suma);
@@ -102,11 +102,11 @@ class Matrices
 		{
 			int multiplicar = 0, counter = 0;
 			
-			Matriz m3(x.tamanioEnM(), y.tamanioEnN());
+			Matriz m3(x.filas(), y.columnas());
 			
-			for(int i = 0; i < x.tamanioEnM(); i++)
+			for(int i = 0; i < x.filas(); i++)
 			{
-				for(int j = 0; j < x.tamanioEnN(); j++)
+				for(int j = 0; j < y.filas(); j++)
 				{
 					multiplicar += x.obtenerElemento(i, j) * y.obtenerElemento(j, i);		
 					
@@ -114,7 +114,7 @@ class Matrices
 				m3.asignarElemento(i, counter, multiplicar);
 				counter++;
 				multiplicar = 0;
-				if(counter == x.tamanioEnN())
+				if(counter == x.columnas())
 					counter = 0;
 			}
 			
