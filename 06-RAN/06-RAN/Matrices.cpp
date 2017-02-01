@@ -1,7 +1,7 @@
 #include <iostream>
 
 using namespace std;
-
+//http://recursostic.educacion.es/descartes/web/materiales_didacticos/markov_mbgr/productodematrices.htm
 class Matriz
 {
 	private:
@@ -100,7 +100,7 @@ class Matrices
 		
 		Matriz multiplicar(Matriz x, Matriz y)
 		{
-			int multiplicar = 0;
+			int multiplicar = 0, counter = 0;
 			
 			Matriz m3(x.tamanioEnM(), y.tamanioEnN());
 			
@@ -111,13 +111,17 @@ class Matrices
 					multiplicar += x.obtenerElemento(i, j) * y.obtenerElemento(j, i);		
 					
 				}
-				m3.asignarElemento(i, j, multiplicacion);
+				m3.asignarElemento(i, counter, multiplicar);
+				counter++;
+				multiplicar = 0;
+				if(counter == x.tamanioEnN())
+					counter = 0;
 			}
 			
 			return m3;
 		}
 };
-|
+
 //m = filas, n = columnas
 int main()
 {
@@ -133,20 +137,27 @@ int main()
 	Matriz m1 = ms.creaMatriz(5, 5);
 	m1.inicializarMatriz(50);
 	
+	m1.imprimir();
+	
 	Matriz m2 = ms.creaMatriz(5, 5);
 	m2.inicializarMatriz(14);
-	
+	cout<<endl<<endl;
+	m2.imprimir();
+	cout<<endl<<endl;
 	
 	Matriz mSuma = ms.sumar(m1, m2);
 	mSuma.imprimir();
 	
+	cout<<endl<<endl;
+	
+	Matriz mMultiplicacion = ms.multiplicar(m1, m2);
+	mMultiplicacion.imprimir();
 	
 	
 	
 	
 	
-	
-	system("pause");
+	//system("pause");
 	/*for(int i = 0; i < m; i++)
 	{
 		for(int j = 0; j < n; j++)
@@ -171,7 +182,7 @@ int main()
 		cout<<"Posicion invalida!"<<endl;
 	*/
 	
-	system("pause");
+	//system("pause");
 	
 	return 0;
 }
