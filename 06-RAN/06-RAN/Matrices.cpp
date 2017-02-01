@@ -98,9 +98,27 @@ class Matrices
 			return m3;
 		}
 		
-		Matriz multiplicar(Matriz x, Matriz )
+		Matriz multiplicar(Matriz x, Matriz y)
+		{
+			int multiplicar = 0;
+			
+			Matriz m3(x.tamanioEnM(), y.tamanioEnN());
+			
+			for(int i = 0; i < x.tamanioEnM(); i++)
+			{
+				for(int j = 0; j < x.tamanioEnN(); j++)
+				{
+					multiplicar += x.obtenerElemento(i, j) * y.obtenerElemento(j, i);		
+					
+				}
+				m3.asignarElemento(i, j, multiplicacion);
+			}
+			
+			return m3;
+		}
 };
-
+|
+//m = filas, n = columnas
 int main()
 {
 	int counter = 1, m, n;
