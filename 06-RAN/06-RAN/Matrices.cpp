@@ -15,6 +15,16 @@ class Matriz
 			this->n = n;
 		}
 		
+		void inicializarMatriz(int valor)
+		{
+			for(int i = 0; i < m; i++)
+			{
+				for (int j = 0; j < n; j++)
+				{
+					matriz[i][j] = valor;
+				}
+			}
+		}
 		void asignarElemento(int m, int n, int valor)
 		{
 		
@@ -27,17 +37,37 @@ class Matriz
 			return matriz[m][n];
 		
 		}
-		bool esValido(int m, int n)
+		bool esPosicionValida(int m, int n)
 		{
-			if(m >= this->m || int n>= this->n)
+			//POSICION VALIDA: indica si la posicion que se busca es válida
+			if(m >= this->m || n>= this->n)
 			{
 				return false;
 			}
 			
 			return true;
 		}
-			
-	
+		int tamanioEnM()
+		{
+			return m;
+		}
+		int tamanioEnN()
+		{
+			return n;
+		}
+		void imprimir()
+		{
+		
+			for(int i = 0; i < m; i++)
+			{
+				for(int j = 0; j < n; j++)
+				{
+					cout<<matriz[i][j]<<" ";
+				}
+				cout<<endl;
+			}	
+		}	
+		
 };
 
 class Matrices
@@ -49,6 +79,26 @@ class Matrices
 			
 			return a;	
 		}	
+		
+		Matriz sumar(Matriz x, Matriz y)
+		{
+			int suma;
+			
+			Matriz m3(5, 5);
+			
+			for(int i = 0; i < x.tamanioEnM(); i++)
+			{
+				for(int j = 0; j < x.tamanioEnN(); j++)
+				{
+					suma = x.obtenerElemento(i, j) + y.obtenerElemento(i, j);		
+					m3.asignarElemento(i, j, suma);
+				}
+			}
+			
+			return m3;
+		}
+		
+		Matriz multiplicar(Matriz x, Matriz )
 };
 
 int main()
@@ -56,15 +106,30 @@ int main()
 	int counter = 1, m, n;
 	Matrices ms;
 	
-	cout<<"Por favor ingrese el tamaño de la matriz que desea crear: "<<endl;
+	/*cout<<"Por favor ingrese el tamaño de la matriz que desea crear: "<<endl;
 	cout<<"m: ";
 	cin>>m;
 	cout<<"n: ";
-	cin>>n;
+	cin>>n;*/
 	
-	Matriz m1 = ms.creaMatriz(m, n);
+	Matriz m1 = ms.creaMatriz(5, 5);
+	m1.inicializarMatriz(50);
 	
-	for(int i = 0; i < m; i++)
+	Matriz m2 = ms.creaMatriz(5, 5);
+	m2.inicializarMatriz(14);
+	
+	
+	Matriz mSuma = ms.sumar(m1, m2);
+	mSuma.imprimir();
+	
+	
+	
+	
+	
+	
+	
+	system("pause");
+	/*for(int i = 0; i < m; i++)
 	{
 		for(int j = 0; j < n; j++)
 		{
@@ -82,7 +147,11 @@ int main()
 	cout<<"n: ";
 	cin>>n;
 	
-	cout<<m1.obtenerElemento(m, n);
+	if(m1.esPosicionValida(m, n))
+		cout<<m1.obtenerElemento(m, n);
+	else
+		cout<<"Posicion invalida!"<<endl;
+	*/
 	
 	system("pause");
 	
