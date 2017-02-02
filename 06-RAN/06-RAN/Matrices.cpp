@@ -39,7 +39,7 @@ class Matriz
 		}
 		bool esPosicionValida(int m, int n)
 		{
-			//POSICION VALIDA: indica si la posicion que se busca es válida
+			
 			if(m >= this->m || n>= this->n)
 			{
 				return false;
@@ -81,44 +81,58 @@ class Matrices
 		}	
 		
 		Matriz sumar(Matriz x, Matriz y)
-		{
-			int suma;
-			
+		{			
 			Matriz m3(5, 5);
 			
 			for(int i = 0; i < x.filas(); i++)
 			{
 				for(int j = 0; j < x.columnas(); j++)
-				{
-					suma = x.obtenerElemento(i, j) + y.obtenerElemento(i, j);		
-					m3.asignarElemento(i, j, suma);
+				{		
+					m3.asignarElemento(i, j, (x.obtenerElemento(i, j) + y.obtenerElemento(i, j)));
 				}
 			}
 			
 			return m3;
 		}
-		
+				
 		Matriz multiplicar(Matriz x, Matriz y)
 		{
-			int multiplicar = 0, counter = 0;
+			int multiplicar = 0, counter = 0, helper = 0;
 			
 			Matriz m3(x.filas(), y.columnas());
 			
 			for(int i = 0; i < x.filas(); i++)
 			{
-				for(int j = 0; j < y.filas(); j++)
+				while(helper < y.columnas())
 				{
-					multiplicar += x.obtenerElemento(i, j) * y.obtenerElemento(j, i);		
-					
+					for(int j = 0; j < y.filas(); j++)
+					{
+						multiplicar += x.obtenerElemento(i, j) * y.obtenerElemento(j, helper);		
+						
+					}
+					m3.asignarElemento(i, helper, multiplicar);	
+					multiplicar = 0;
+					helper++;
 				}
-				m3.asignarElemento(i, counter, multiplicar);
-				counter++;
-				multiplicar = 0;
-				if(counter == x.columnas())
-					counter = 0;
+				helper = 0;
 			}
 			
 			return m3;
+		}
+		
+		Matriz transponer(Matriz x)
+		{
+			Matriz res(x.columnas(), x.filas());
+			
+			for(int i = 0; i < x.filas(); i++)
+			{
+				for(int j = 0; j < x.columnas(); j++)
+				{
+					res.asignarElemento(j, i, x.obtenerElemento(i, j));
+				}
+			}
+			
+			return res;
 		}
 };
 
@@ -134,26 +148,39 @@ int main()
 	cout<<"n: ";
 	cin>>n;*/
 	
+	cout<<"MATRIZ 1\n\n";
+	
 	Matriz m1 = ms.creaMatriz(5, 5);
-	m1.inicializarMatriz(50);
+	m1.inicializarMatriz(4);
 	
 	m1.imprimir();
 	
-	Matriz m2 = ms.creaMatriz(5, 5);
-	m2.inicializarMatriz(14);
-	cout<<endl<<endl;
-	m2.imprimir();
+	cout<<"\n\nMATRIZ 2";
+	
+	Matriz m2 = ms.creaMatriz(5, 2);
+	m2.inicializarMatriz(2);
+	
 	cout<<endl<<endl;
 	
+	m2.imprimir();
+	
+	cout<<endl<<endl;
+	
+/*	cout<<"\n\nSUMA\n\n";
 	Matriz mSuma = ms.sumar(m1, m2);
 	mSuma.imprimir();
-	
+*/	
 	cout<<endl<<endl;
 	
+	cout<<"\n\nMULTIPLICACION\n\n";
 	Matriz mMultiplicacion = ms.multiplicar(m1, m2);
 	mMultiplicacion.imprimir();
 	
+	cout<<endl<<endl;
 	
+	cout<<"\n\nTRANSPUESTA\n\n";
+	Matriz mTranspuesta = ms.transponer(m2);
+	mTranspuesta.imprimir();
 	
 	
 	
