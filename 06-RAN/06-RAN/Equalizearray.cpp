@@ -58,7 +58,8 @@ int main() {
             mayor = frec[i];    
         }
     }
-    cout<<mayor;
-   
+    
+    cout<<n - mayor;
+    
     return 0;
 }
