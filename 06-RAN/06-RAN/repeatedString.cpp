@@ -22,7 +22,7 @@
 #include <unordered_map>
 
 using namespace std;
-
+//https://www.hackerrank.com/challenges/jumping-on-the-clouds?h_r=next-challenge&h_v=zen
 int main(){
     int i = 0, a = 0, j = 0;
     long int div, counter = 0,x = 0;
