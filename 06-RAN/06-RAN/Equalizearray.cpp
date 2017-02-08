@@ -13,21 +13,26 @@ int main() {
     int array[n];
     int frec[n] = {0};
     int num[n];
+    int mayor = 0;
     bool exists = false;
     int limit = 1;
     
     for(int i = 0; i < n; i++)
     {
-        cin>>array[i];    
+        cin>>array[i]; 
+       //cout<<array[i]<<" ";
     }
-    
+    //cout<<endl;
     num[0] = array[0];
     frec[0] = 1;
     
     for(int i = 1; i < n; i++)
     {
-        for(int j = 0; j < i; j++)
+        //cout<<"i:"<<i<<endl;
+        //cout<<"limit:"<<limit<<endl;
+        for(int j = 0; j < limit; j++)
         {
+            //cout<<num[j]<<endl;
             if(num[j] == array[i])
             {
                 frec[j]++;
@@ -35,19 +40,25 @@ int main() {
                 break;
             }
         }
+        //cout<<endl<<endl;
         if(!exists)
         {
             //cout<<array[i]<<" No existe"<<endl;
-            num[i] = array[i];
-            frec[i]++;
-            //limit++;
+            num[limit] = array[i];
+            frec[limit]++;
+            limit++;
         }
+        exists = false;
     }
     
     for(int i = 0; i < n; i++)
     {
-        cout<<num[i]<<" ";    
+        if(frec[i] > mayor)
+        {
+            mayor = frec[i];    
+        }
     }
-    
+    cout<<mayor;
+   
     return 0;
 }
