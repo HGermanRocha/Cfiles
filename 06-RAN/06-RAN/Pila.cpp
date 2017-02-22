@@ -8,7 +8,7 @@ using namespace std;
 
 class Pila
 {
-	private:
+    private:
 		int n;
 		int pos;
 		int arreglo[MAX] = {0};
