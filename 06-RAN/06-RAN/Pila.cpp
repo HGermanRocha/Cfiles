@@ -59,25 +59,31 @@ class Pila
 		}
 		bool balanceada()
 		{
-			int counter1 = 0, counter2 = 0;
+			int aberturas = 0, cerraduras = 0;
+			int aber1 = 0, cer1 = 0;
 			char type;
-			bool respuesta = false;
 			
 			string expresion = "{3*[(9-7)+(8*3)]}";
 			
 			for(int i = 0; i < expresion.length(); i++)
 			{
-				
+				if(expresion[i] == '{' || expresion[i] == '(' || expresion[i] == '[' )
+				{
+					aber1++;
+				}
+				else if(expresion[i] == '}' || expresion[i] == ')' || expresion[i] == ']' )
+				{
+					cer1++;
+				}
 				if(expresion[i] == '{')
 				{
 					type = '}';
-					counter1++;
+					aberturas++;
 					for(int j = i; j < expresion.length(); j++)
 					{
 						if(expresion[j] == type)
 						{
-							cout<<type<<endl;
-							counter2++;
+							cerraduras++;
 							break;
 						}
 					}
@@ -85,13 +91,12 @@ class Pila
 				else if(expresion[i] == '(')
 				{
 					type = ')';
-					counter1++;
+					aberturas++;
 					for(int j = i; j < expresion.length(); j++)
 					{
 						if(expresion[j] == type)
 						{
-							counter2++;
-							cout<<type<<endl;
+							cerraduras++;
 							break;
 						}
 					}
@@ -100,13 +105,12 @@ class Pila
 				else if(expresion[i] == '[')
 				{
 					type = ']';
-					counter1++;
+					aberturas++;
 					for(int j = i; j < expresion.length(); j++)
 					{
 						if(expresion[j] == type)
 						{
-							counter2++;
-							cout<<type<<endl;
+							cerraduras++;
 							break;
 						}
 					}
@@ -114,7 +118,7 @@ class Pila
 			
 			}                                                                                                             	
 			
-			return counter1==counter2;
+			return aberturas==cerraduras && aber1==cer1;
 		}
 
 		void imprimir()
