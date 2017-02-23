@@ -11,7 +11,7 @@ class Pila
     private:
 		int n;
 		int pos;
-		int arreglo[MAX] = {0};
+		char arreglo[MAX] = {0};
 	public:
 		
 		void crearPila()
@@ -28,7 +28,7 @@ class Pila
 		{
 			return(pos == MAX);
 		}
-		bool push(int valor)
+		bool push(char valor)
 		{
 			if(llena())
 			{
@@ -53,10 +53,70 @@ class Pila
 		
 			return true;
 		}
-		int top()
+		char top()
 		{
 			return arreglo[pos-1];
 		}
+		bool balanceada()
+		{
+			int counter1 = 0, counter2 = 0;
+			char type;
+			bool respuesta = false;
+			
+			string expresion = "{3*[(9-7)+(8*3)]}";
+			
+			for(int i = 0; i < expresion.length(); i++)
+			{
+				
+				if(expresion[i] == '{')
+				{
+					type = '}';
+					counter1++;
+					for(int j = i; j < expresion.length(); j++)
+					{
+						if(expresion[j] == type)
+						{
+							cout<<type<<endl;
+							counter2++;
+							break;
+						}
+					}
+				}
+				else if(expresion[i] == '(')
+				{
+					type = ')';
+					counter1++;
+					for(int j = i; j < expresion.length(); j++)
+					{
+						if(expresion[j] == type)
+						{
+							counter2++;
+							cout<<type<<endl;
+							break;
+						}
+					}
+					
+				}
+				else if(expresion[i] == '[')
+				{
+					type = ']';
+					counter1++;
+					for(int j = i; j < expresion.length(); j++)
+					{
+						if(expresion[j] == type)
+						{
+							counter2++;
+							cout<<type<<endl;
+							break;
+						}
+					}
+				}	
+			
+			}                                                                                                             	
+			
+			return counter1==counter2;
+		}
+
 		void imprimir()
 		{
 			for(int i = pos-1; i >= 0; i--)
@@ -68,17 +128,20 @@ class Pila
 
 int main()
 {
-	int i = 1; 
 	Pila p;	
 	
-	while(true)
-	{
-		if(!p.push(i))
-			break;
-		i++;
-	}
 	p.imprimir();
 	
+	if(p.balanceada())
+	{
+		cout<<"La expresion esta balanceada!";
+	}
+	else
+	{
+		cout<<"No esta balanceada";
+	}
+	
+	cout<<endl;
 	
 	system("pause");
 	
