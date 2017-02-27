@@ -143,7 +143,7 @@ class Expresion
 		bool esMayor(char operador1, char operador2)
 		{
 			int prioridad1, prioridad2;
-			char jerarquiaDeOperadores[7] = {')','(','-','+','/','*','^'};
+			char jerarquiaDeOperadores[7] = {')','-','+','/','*','^','('};
 			
 			for(int i = 0; i < 7; i++)
 			{
@@ -187,17 +187,28 @@ int main()
 				if(pila.estaVacia())
 				{
 					pila.push(infija[i]);
-					pila.imprimir();
-					cout<<endl;
+					//pila.imprimir();
+					//cout<<endl;
 				}
 				else
 				{
 					if(expresion.esMayor(infija[i], pila.top()))
 					{
-						
+						pila.push(infija[i]);
+					}
+					else
+					{
+						expresionPosfija[counter]=pila.top();
+						pila.pop();
+						pila.push(infija[i]);
+						counter++;
+						//cout<<endl<<expresionPosfija<<endl;
 					}
 				}
 			}
+			//pila.imprimir();
+			//cout<<endl;
+			//cout<<endl<<expresionPosfija<<endl;
 		}
 		
 	}
