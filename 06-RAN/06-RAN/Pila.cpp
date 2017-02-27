@@ -4,7 +4,7 @@
 
 using namespace std;
 
-#define MAX 15
+#define MAX 9
 
 class Pila
 {
@@ -19,7 +19,7 @@ class Pila
 		}
 		
 		
-		bool vacia()
+		bool estaVacia()
 		{	
 			return (pos == 0);
 		}
@@ -42,7 +42,7 @@ class Pila
 		}
 		bool pop()
 		{
-			if(vacia())
+			if(estaVacia())
 			{
 				return false;
 			}
@@ -142,16 +142,34 @@ class Expresion
 		
 		bool esMayor(char operador1, char operador2)
 		{
+			int prioridad1, prioridad2;
+			char jerarquiaDeOperadores[7] = {')','(','-','+','/','*','^'};
 			
+			for(int i = 0; i < 7; i++)
+			{
+				if(operador1 == jerarquiaDeOperadores[i])
+				{
+					prioridad1 = i;
+				}
+				if(operador2 == jerarquiaDeOperadores[i])
+				{
+					prioridad2 = i;
+				}
+			}
+			
+			return (prioridad1 > prioridad2);
 		}
 };
 
 int main()
 {
 	string infija = "4*5/(4+6)";
-	Expresion expresion(infija);	
 	string expresionPosfija=infija;
 	int counter = 0;
+	
+	//Creacion de los objetos
+	Expresion expresion(infija);
+	Pila pila;
 	
 	if(expresion.estaBalanceada())
 	{
@@ -163,6 +181,22 @@ int main()
 			{
 				expresionPosfija[counter] = infija[i];
 				counter++;
+			}
+			else
+			{
+				if(pila.estaVacia())
+				{
+					pila.push(infija[i]);
+					pila.imprimir();
+					cout<<endl;
+				}
+				else
+				{
+					if(expresion.esMayor(infija[i], pila.top()))
+					{
+						
+					}
+				}
 			}
 		}
 		
