@@ -143,15 +143,16 @@ class Expresion
 		bool esMayor(char operador1, char operador2)
 		{
 			int prioridad1, prioridad2;
-			char jerarquiaDeOperadores[7] = {')','-','+','/','*','^','('};
+			char jerarquiaDeOperadores[3] = {'+','*','^'};
+			char jerarquiaDeOperadores2[2]={'-','/'};
 			
 			for(int i = 0; i < 7; i++)
 			{
-				if(operador1 == jerarquiaDeOperadores[i])
+				if(operador1 == jerarquiaDeOperadores[i] || operador1 == jerarquiaDeOperadores2[i])
 				{
 					prioridad1 = i;
 				}
-				if(operador2 == jerarquiaDeOperadores[i])
+				if(operador2 == jerarquiaDeOperadores[i] || operador2 == jerarquiaDeOperadores2[i])
 				{
 					prioridad2 = i;
 				}
@@ -192,12 +193,27 @@ int main()
 				}
 				else
 				{
-					if(expresion.esMayor(infija[i], pila.top()))
+					if(infija[i] == '(')
+					{
+						pila.push(infija[i]);
+					}	
+					else if(expresion.esMayor(infija[i], pila.top()))
 					{
 						pila.push(infija[i]);
 					}
 					else
 					{
+						if(infija[i]== ')')
+						{
+							while(pila.top() != '(')
+							{
+								expresionPosfija[counter] = pila.top();
+								pila.pop();	
+								counter++;
+							}
+							pila.pop();
+							
+						}
 						expresionPosfija[counter]=pila.top();
 						pila.pop();
 						pila.push(infija[i]);
