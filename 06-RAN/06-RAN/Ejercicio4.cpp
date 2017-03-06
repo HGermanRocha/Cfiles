@@ -42,6 +42,26 @@ class Triangulo
         }
 };
 
+class Rectangulo
+{
+    private:
+        double base;
+        double altura;
+    public:    
+        void setBase(double base)
+        {
+            this->base = base;
+        }
+        void setAltura(double altura)
+        {
+            this->altura = altura;
+        }
+        double getArea()
+        {
+            return (base*altura);
+        }
+};
+
 int main()
 {
     double base, altura, radio;
@@ -49,10 +69,12 @@ int main()
     
     Triangulo triangulo;
     Circulo circulo;
+    Rectangulo rectangulo;
     
     cout<<"Seleccione una figura geometrica: ";
     cout<<endl<<"1. Triangulo"<<endl;
     cout<<"2. Circulo"<<endl;
+    cout<<"3. Rectangulo"<<endl;
     cout<<endl<<"Opc_";
     cin>>opc;
     
@@ -76,6 +98,17 @@ int main()
             circulo.setRadio(radio);
             
             cout<<endl<<endl<<"Su area es: "<<circulo.getArea();
+            break;
+        case 3:
+            cout<<"Base: ";
+            cin>>base;
+            cout<<"Altura: ";
+            cin>>altura;
+            
+            rectangulo.setAltura(altura);
+            rectangulo.setBase(base);
+            
+            cout<<endl<<endl<<"Su area es: "<<rectangulo.getArea();
             break;
         default:
             cout<<"Opcion invalida!";
