@@ -4,7 +4,7 @@
 
 using namespace std;
 
-#define MAX 9
+#define MAX 7
 
 class Pila
 {
@@ -160,11 +160,31 @@ class Expresion
 			
 			return (prioridad1 > prioridad2);
 		}
+		bool esIgualMayor(char operador1, char operador2)
+		{
+			int prioridad1, prioridad2;
+			char jerarquiaDeOperadores[3] = {'+','*','^'};
+			char jerarquiaDeOperadores2[2]={'-','/'};
+			
+			for(int i = 0; i < 7; i++)
+			{
+				if(operador1 == jerarquiaDeOperadores[i] || operador1 == jerarquiaDeOperadores2[i])
+				{
+					prioridad1 = i;
+				}
+				if(operador2 == jerarquiaDeOperadores[i] || operador2 == jerarquiaDeOperadores2[i])
+				{
+					prioridad2 = i;
+				}
+			}
+			
+			return (prioridad1 >= prioridad2);
+		}
 };
 
 int main()
 {
-	string infija = "4*5/(4+6)";
+	string infija = "(3+5)*2";
 	string expresionPosfija=infija;
 	int counter = 0;
 	
@@ -174,7 +194,7 @@ int main()
 	
 	if(expresion.estaBalanceada())
 	{
-		cout<<"La expresion esta balanceada!";
+		//cout<<"La expresion esta balanceada!";
 		cout<<endl;
 		for(int i = 0; i < infija.length(); i++)
 		{
@@ -188,7 +208,7 @@ int main()
 				if(pila.estaVacia())
 				{
 					pila.push(infija[i]);
-					//pila.imprimir();
+					//pila.imprimir()<<endl;
 					//cout<<endl;
 				}
 				else
@@ -214,10 +234,19 @@ int main()
 							pila.pop();
 							
 						}
-						expresionPosfija[counter]=pila.top();
-						pila.pop();
-						pila.push(infija[i]);
-						counter++;
+						else
+						{
+							//system("pause");
+							while(expresion.esIgualMayor(pila.top(), infija[i]) || pila.top() != '(')
+							{
+								expresionPosfija[counter]=pila.top();
+								pila.pop();
+								counter++;
+								cout<<pila.top()<<endl;
+								system("pause");
+							}
+								
+						}
 						//cout<<endl<<expresionPosfija<<endl;
 					}
 				}
@@ -232,10 +261,11 @@ int main()
 	{
 		cout<<"No esta balanceada";
 	}
-	//cout<<expresionPosfija;
+	cout<<expresionPosfija;
 	cout<<endl;
 	
 	//system("pause");
 	
 	return 0;
 }
+
