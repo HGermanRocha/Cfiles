@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <cmath>
 
 using namespace std;
 
@@ -68,6 +69,38 @@ class TDA_Cola
 	    	return frente;
 	    }
 	    
+	    bool esCapicua(int valor)
+	    {
+	    	double param = (double) valor;
+	    	int length = ((int)log10(param)) + 1;
+	    	int decimal; 
+	    	int decimales[length];
+	    	int helper = 1, counter = 0, counter2 = 0;
+	    	
+	    	for(int i = 0; i < length; i++)
+	    	{
+	    		param = param / 10;
+	    		decimal = static_cast<int>(param*10)%10;
+	    		
+	    		decimales[i] = decimal;
+	    	}
+	    	
+	    	for(int i = 0; i < length; i++)
+	    	{
+	    		counter += decimales[i] * helper;
+	    		helper *= 10;
+	    	}
+	    	helper = helper/10;      //Esta linea es importante para posicionar helper donde debe de ser
+
+	    	for(int i = 0; i < length; i++)
+	    	{
+	    		counter2 += decimales[i] * helper;
+	    		helper = helper/10;
+	    	}
+
+	    	return counter == counter2;
+	    }
+	    
 	    void imprimir()
 	    {
 	        if(estaVacia())
@@ -108,6 +141,13 @@ int main()
 	c.imprimir();
 	cout<<endl<<endl;
 	
-	
+	if(c.esCapicua(595))
+	{
+		cout<<"Es capicua!";
+	}
+	else
+	{
+		cout<<"No es capicua";
+	}
 	return 0;
 }
