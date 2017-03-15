@@ -4,7 +4,11 @@
 
 using namespace std;
 
-#define MAX 7
+#define MAX 15
+
+//---------------------------------------------------------------------------------------------
+//*************CLASE PILA***************
+//Esta clase maneja el comportamiento de una pila para resolver el problema
 
 class Pila
 {
@@ -66,6 +70,11 @@ class Pila
 		}
 };
 
+//--------------------------------------------------------------------------------
+//*************CLASE EXPRESIONES**********************
+//Sirve para analizar la expresion a evaluar, checar si esta balanceada y para realizar comparaciones de
+//jerarquia entre operadores entrantes a la pila y operadores del top de la pila
+
 class Expresion
 {
 	private:
@@ -81,8 +90,6 @@ class Expresion
 			int aberturas = 0, cerraduras = 0;
 			int aber1 = 0, cer1 = 0;
 			char type;
-			
-			//string expresion = "{3*[(9-7)+(8*3)]}";
 			
 			for(int i = 0; i < expresion.length(); i++)
 			{
@@ -142,17 +149,37 @@ class Expresion
 		
 		bool esMayor(char operador1, char operador2)
 		{
-			int prioridad1, prioridad2;
-			char jerarquiaDeOperadores[3] = {'+','*','^'};
+			//*******NOTA IMPORTANTE********
+			//Se le asigna el valor -1 por default a las variales 'prioridad1' y 'prioridad2' para abarcar el simbolo '('. Si se llega a comparar
+			//entonces la prioridad del parentesis en nula y por lo tanto no debe de se un obstaculo para que un nuevo 
+			//operador sea agregado a la pila.
+			
+			int prioridad1 = -1, prioridad2 = -1; 
+			
+			//Arreglos que ayudan a obtener el valor jerarquico de cada operador.
+			//Segun la posicion de los operadores en el arreglo es el valor jerarquico que tiene cada uno.
+			char jerarquiaDeOperadores[3] = {'+','*','^'}; 
 			char jerarquiaDeOperadores2[2]={'-','/'};
 			
-			for(int i = 0; i < 7; i++)
+			for(int i  = 0; i < 3; i++)
 			{
-				if(operador1 == jerarquiaDeOperadores[i] || operador1 == jerarquiaDeOperadores2[i])
+				if(operador1 == jerarquiaDeOperadores[i])
 				{
 					prioridad1 = i;
 				}
-				if(operador2 == jerarquiaDeOperadores[i] || operador2 == jerarquiaDeOperadores2[i])
+				if(operador2 == jerarquiaDeOperadores[i])
+				{
+					prioridad2 = i;
+				}
+			}
+			
+			for(int i = 0; i < 2; i++)
+			{
+				if(operador1 == jerarquiaDeOperadores2[i])
+				{
+					prioridad1 = i;
+				}
+				if(operador2 == jerarquiaDeOperadores2[i])
 				{
 					prioridad2 = i;
 				}
@@ -160,33 +187,46 @@ class Expresion
 			
 			return (prioridad1 > prioridad2);
 		}
-		bool esIgualMayor(char operador1, char operador2)
+		bool esMenor(char operador1, char operador2)
 		{
-			int prioridad1, prioridad2;
+			int prioridad1 = 5, prioridad2 = 5;
 			char jerarquiaDeOperadores[3] = {'+','*','^'};
 			char jerarquiaDeOperadores2[2]={'-','/'};
 			
-			for(int i = 0; i < 7; i++)
+			for(int i  = 0; i < 3; i++)
 			{
-				if(operador1 == jerarquiaDeOperadores[i] || operador1 == jerarquiaDeOperadores2[i])
+				if(operador1 == jerarquiaDeOperadores[i])
 				{
 					prioridad1 = i;
 				}
-				if(operador2 == jerarquiaDeOperadores[i] || operador2 == jerarquiaDeOperadores2[i])
+				if(operador2 == jerarquiaDeOperadores[i])
 				{
 					prioridad2 = i;
 				}
 			}
 			
-			return (prioridad1 >= prioridad2);
+			for(int i = 0; i < 2; i++)
+			{
+				if(operador1 == jerarquiaDeOperadores2[i])
+				{
+					prioridad1 = i;
+				}
+				if(operador2 == jerarquiaDeOperadores2[i])
+				{
+					prioridad2 = i;
+				}
+			}
+			
+			return (prioridad1 < prioridad2);
 		}
 };
 
 int main()
 {
-	string infija = "(3+5)*2";
+	string infija = "(4+(9-3))*(7+5)";
 	string expresionPosfija=infija;
-	int counter = 0;
+	int counter = 0, pos = 0;
+	int resultado[50];
 	
 	//Creacion de los objetos
 	Expresion expresion(infija);
@@ -195,9 +235,13 @@ int main()
 	if(expresion.estaBalanceada())
 	{
 		//cout<<"La expresion esta balanceada!";
-		cout<<endl;
+		
+//----------------------------------------------------------------------------------------
+//********************CONVERSION A POSFIJO******************************
+
 		for(int i = 0; i < infija.length(); i++)
 		{
+			//Si el elemento de la epresion infija es un OPERANDO...
 			if((int)infija[i] >= 48 && (int)infija[i]<=57)
 			{
 				expresionPosfija[counter] = infija[i];
@@ -205,55 +249,57 @@ int main()
 			}
 			else
 			{
+				//Si la pila esta vacia...
 				if(pila.estaVacia())
 				{
 					pila.push(infija[i]);
-					//pila.imprimir()<<endl;
-					//cout<<endl;
 				}
 				else
 				{
+					//Si el operador que esta ingresando a la pila es un parentesis de apertura...
 					if(infija[i] == '(')
 					{
 						pila.push(infija[i]);
-					}	
-					else if(expresion.esMayor(infija[i], pila.top()))
+					}
+					//Si el operador que esta ingresando a la pila es un parentesis de cerradura...	
+					else if(infija[i]== ')')
 					{
-						pila.push(infija[i]);
+						while(pila.top() != '(')
+						{
+							expresionPosfija[counter] = pila.top();
+							pila.pop();	
+							counter++;
+						}
+						pila.pop();					
 					}
 					else
 					{
-						if(infija[i]== ')')
+						//Si el operador que esta ingresando a la pila es mayor...
+						if(expresion.esMayor(infija[i], pila.top()))
 						{
-							while(pila.top() != '(')
-							{
-								expresionPosfija[counter] = pila.top();
-								pila.pop();	
-								counter++;
-							}
-							pila.pop();
-							
+							pila.push(infija[i]);
 						}
 						else
 						{
-							//system("pause");
-							while(expresion.esIgualMayor(pila.top(), infija[i]) || pila.top() != '(')
+							//Si el operador que esta ingresando en menor...
+							while(expresion.esMenor(infija[i], pila.top()) && pila.top() != '(')
 							{
 								expresionPosfija[counter]=pila.top();
 								pila.pop();
 								counter++;
-								cout<<pila.top()<<endl;
-								system("pause");
 							}
 								
 						}
-						//cout<<endl<<expresionPosfija<<endl;
 					}
 				}
 			}
-			//pila.imprimir();
-			//cout<<endl;
-			//cout<<endl<<expresionPosfija<<endl;
+		}
+		//Se vacia la pila si despues de todo el procedimiento quedan elementos en la pila y se agregan a la expresion posfija.
+		while(!pila.estaVacia())
+		{
+			expresionPosfija[counter] = pila.top();
+			counter++;
+			pila.pop();
 		}
 		
 	}
@@ -261,11 +307,49 @@ int main()
 	{
 		cout<<"No esta balanceada";
 	}
-	cout<<expresionPosfija;
+	
+	cout<<"Expresion Infija: "<<infija<<endl;
+	cout<<"Expresion Posfija: ";
+	for(int i = 0; i < counter; i++)
+	{
+		cout<<expresionPosfija[i];
+	}
+	
 	cout<<endl;
-	
-	//system("pause");
-	
+//---------------------------------------------------------------------------
+//*********CALCULO DE LA EXPRESION POSFIJA******************************
+	for(int i = 0; i < counter; i++)
+	{
+		//Si el elemento de la expresion posfija es un OPERANDO...
+		if((int)expresionPosfija[i] >= 48 && (int)expresionPosfija[i]<=57)
+		{
+			resultado[pos] = (int)expresionPosfija[i] - 48;		//Convertidor de caracter a entero
+			pos++;
+		}
+		else 
+		{
+			//Si el elemento de la expresion posfija es un operador se realiza su respectiva operacion
+			if(expresionPosfija[i] == '+')
+			{
+				resultado[pos - 2] += resultado[pos - 1];  
+			}
+			else if(expresionPosfija[i] == '-')
+			{
+				resultado[pos - 2] -= resultado[pos - 1];
+			}
+			else if(expresionPosfija[i] == '*')
+			{
+				resultado[pos - 2] *= resultado[pos - 1];
+			}
+			else if(expresionPosfija[i] == '/')
+			{
+				resultado[pos - 2] = resultado[pos - 2] / resultado[pos - 1];
+			}
+			pos -= 1;
+		}
+	}
+	cout<<"Resultado: "<<resultado[0]<<endl;
+	cout<<endl;
+
 	return 0;
 }
-

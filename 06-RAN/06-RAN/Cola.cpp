@@ -66,6 +66,10 @@ class TDA_Cola
 	    
 	    TIPO_DE_DATO getFrente()
 	    {
+	    	if(estaVacia())
+	    	{
+	    		return false;
+	    	}
 	    	return frente;
 	    }
 	    
@@ -141,7 +145,7 @@ int main()
 	c.imprimir();
 	cout<<endl<<endl;
 	
-	if(c.esCapicua(595))
+	if(c.esCapicua(121))
 	{
 		cout<<"Es capicua!";
 	}
