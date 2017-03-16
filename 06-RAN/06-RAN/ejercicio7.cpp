@@ -35,17 +35,38 @@ class Promedios
         void imprimirDeMayorAMenor(Alumno alumno, Alumno alumno2, Alumno alumno3, Alumno alumno4, Alumno alumno5)
         {
             float arreglo[5] = {alumno.getPromedio(), alumno2.getPromedio(), alumno3.getPromedio(), alumno4.getPromedio(), alumno5.getPromedio()};
-            float mayor;
-            
-            for(int i = 0; i < 4; i++)
+            float menor;
+            int counter = 0;
+//            1 25 2 37 10
+            while(counter != 4)
             {
-                if(arreglo[i] > arreglo[i+ 1])
+                for(int i = 0; i < 4; i++)
                 {
-                    mayor = arreglo[i];
-                    arreglo[i] = arreglo[i + 1];
-                    arreglo[i + 1] = mayor;
+                    if(arreglo[i] < arreglo[i+ 1])
+                    {
+                        menor = arreglo[i];
+                        arreglo[i] = arreglo[i + 1];
+                        arreglo[i + 1] = menor;
+                        counter = 0;
+                    }
+                    else
+                    {
+                        counter++;
+                    }
                 }
+                for(int i = 0; i < 5; i++)
+                {
+                    cout<<arreglo[i]<<endl;
+                } 
+                cout<<endl<<endl<<counter<<endl;
+                system("pause");   
             }
+            
+            /*for(int i = 0; i < 5; i++)
+            {
+                cout<<arreglo[i]<<endl;
+            }
+            system("pause");*/
         }
         
 };
@@ -55,6 +76,8 @@ int main()
     int numDeMaterias;
     float cal;
     int helper;
+    
+    Promedios promedios;
     
     Alumno alumno;
     Alumno alumno2;
@@ -102,12 +125,9 @@ int main()
     
     
     
-    cout<<endl<<endl<<alumno.getPromedio()<<endl;
-    cout<<alumno2.getPromedio()<<endl;
-    cout<<alumno3.getPromedio()<<endl;
-    cout<<alumno4.getPromedio()<<endl;
-    cout<<alumno5.getPromedio()<<endl;
+    promedios.imprimirDeMayorAMenor(alumno, alumno2, alumno3, alumno4, alumno5);
     
+    system("pause");
     
     return 0;
 }
