@@ -40,6 +40,8 @@ class Promedios
 //            1 25 2 37 10
             while(counter != 4)
             {
+            	counter = 0;
+            	
                 for(int i = 0; i < 4; i++)
                 {
                     if(arreglo[i] < arreglo[i+ 1])
@@ -54,19 +56,12 @@ class Promedios
                         counter++;
                     }
                 }
-                for(int i = 0; i < 5; i++)
-                {
-                    cout<<arreglo[i]<<endl;
-                } 
-                cout<<endl<<endl<<counter<<endl;
-                system("pause");   
             }
-            
-            /*for(int i = 0; i < 5; i++)
+            cout<<"*****Promedios Generales*****"<<endl<<endl;
+            for(int i = 0; i < 5; i++)
             {
                 cout<<arreglo[i]<<endl;
             }
-            system("pause");*/
         }
         
 };
@@ -121,6 +116,8 @@ int main()
         cin>>cal;
         
         alumno5.setCalificacion(numDeMaterias, cal);
+        
+        cout<<endl<<endl;
     }
     
     
