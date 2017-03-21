@@ -111,11 +111,11 @@ class TDA_Cola
 	        {
 	            return;
 	        }
-	        
 	        for(int i = frente; i != final; i = siguiente(i))
 	        {
 	            cout<<Arreglo[i]<<" ";
 	        }
+	        cout<<Arreglo[final];
 	        cout<<endl<<"Total de elementos: "<<numElementos;
 	        cout<<endl<<"Frente: "<<frente;
 	        cout<<endl<<"Final: "<<final;
