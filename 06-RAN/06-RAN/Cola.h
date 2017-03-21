@@ -5,9 +5,9 @@
 
 using namespace std;
 
-typedef int TIPO_DE_DATO;
+typedef char TIPO_DE_DATO;
 
-const int MAXTAMQ = 5;
+const int MAXTAMQ = 8;
 
 class TDA_Cola 
 {
@@ -73,38 +73,6 @@ class TDA_Cola
 	    	return Arreglo[frente];
 	    }
 	    
-	    bool esCapicua(int valor)
-	    {
-	    	double param = (double) valor;
-	    	int length = ((int)log10(param)) + 1;
-	    	int decimal; 
-	    	int decimales[length];
-	    	int helper = 1, counter = 0, counter2 = 0;
-	    	
-	    	for(int i = 0; i < length; i++)
-	    	{
-	    		param = param / 10;
-	    		decimal = static_cast<int>(param*10)%10;
-	    		
-	    		decimales[i] = decimal;
-	    	}
-	    	
-	    	for(int i = 0; i < length; i++)
-	    	{
-	    		counter += decimales[i] * helper;
-	    		helper *= 10;
-	    	}
-	    	helper = helper/10;      //Esta linea es importante para posicionar helper donde debe de ser
-
-	    	for(int i = 0; i < length; i++)
-	    	{
-	    		counter2 += decimales[i] * helper;
-	    		helper = helper/10;
-	    	}
-
-	    	return counter == counter2;
-	    }
-	    
 	    void imprimir()
 	    {
 	        if(estaVacia())
@@ -121,37 +89,3 @@ class TDA_Cola
 	        cout<<endl<<"Final: "<<final;
 	    }
 };
-
-int main()
-{
-	TDA_Cola c;
-	
-	c.crearCola();
-	
-	c.insertar(15);
-	c.insertar(34);
-	c.insertar(25);
-	c.insertar(45);
-	
-	c.imprimir();
-	
-	cout<<endl<<endl;
-	c.eliminar();
-	c.imprimir();
-	cout<<endl<<endl;
-	cout<<c.getFrente();
-	cout<<endl<<endl;
-	c.insertar(79);
-	c.imprimir();
-	cout<<endl<<endl;
-	
-	if(c.esCapicua(121))
-	{
-		cout<<"Es capicua!";
-	}
-	else
-	{
-		cout<<"No es capicua";
-	}
-	return 0;
-}
