@@ -106,6 +106,8 @@ int main()
 	{
 		cout<<"Unable to open file";
 	}
-	
+	//http://forums.devarticles.com/c-c-help-52/c-opening-all-txt-files-in-a-folder-one-by-150745.html
+	//https://www.hackerrank.com/challenges/insertionsort2?h_r=next-challenge&h_v=zen HACKERRANK PROBLEM
+	//https://www.hackerrank.com/challenges/red-john-is-back Dynamic Programming
 	return 0;
 }
