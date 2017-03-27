@@ -64,15 +64,19 @@ class TDA_Lista_Simple
         }
         void insertarUltimo(Dato entrada)
         {
-            
             Nodo* ultimo = this->ultimo();  //->this->ultimo() llama a otra funcion dentro de la clase.
             ultimo->ponerEnlace(new Nodo(entrada));
         }
         Nodo* ultimo()
         {
             Nodo* p;
-            
+         
             p = primero;
+         
+            if(p == NULL)
+            {
+                throw"ERROR: Lista vacia!";
+            }
             
             while(p->enlaceNodo() != NULL)
             {
@@ -83,7 +87,12 @@ class TDA_Lista_Simple
         }
         void insertarLista(Nodo* anterior, Dato entrada)
         {
+            Nodo* nuevo;
             
+            nuevo = new Nodo(entrada);
+            
+            nuevo->ponerEnlace(anterior->enlaceNodo());
+            anterior->ponerEnlace(nuevo);
         }
         Nodo* buscarLista(Dato destino)
         {
