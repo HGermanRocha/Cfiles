@@ -96,11 +96,41 @@ class TDA_Lista_Simple
         }
         Nodo* buscarLista(Dato destino)
         {
+            Nodo* indice;
             
+            for(indice = primero; indice != NULL; indice = indice->enlaceNodo())
+            {
+                if(destino == indice->datoNodo())
+                {
+                    return indice;
+                }
+                
+            }
+            
+            return NULL;
+            /*
+            Nodo* seleccionado = primero;
+            
+            while(seleccionado != NULL)
+            {
+                if(seleccionado->datoNodo() == destino)
+                {
+                    return seleccionado;
+                }
+                seleccionado = seleccionado->enlaceNodo();
+            }
+            */
         }
         Nodo* buscarPosicion(int posicion)
         {
+            Nodo* actual = primero;
             
+            for(int i = 0; i < posicion; i++)
+            {
+                actual = actual->enlaceNodo();
+            }
+            
+            return actual;
         }
         void eliminar(Dato entrada)
         {
@@ -142,6 +172,10 @@ int main()
     }
     
     l.insertarUltimo(29);
+    
+    l.insertarLista(l.buscarLista(19), 999);
+    
+    l.insertarLista(l.buscarPosicion(2), 777);
     
     l.mostrar();
     
