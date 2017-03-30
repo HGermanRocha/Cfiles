@@ -40,14 +40,7 @@ class TDA_Lista_Simple
     private:
         Nodo* primero;
     public:
-        /*void test()
-        {
-            primero = new Nodo(19);
-            primero = new Nodo(61, primero);
-            primero = new Nodo(99, primero);
-            
-            cout<<primero->enlaceNodo()->datoNodo();
-        }*/
+    
         void crearLista(Nodo* primero)
         {
             this->primero = primero;
@@ -108,32 +101,55 @@ class TDA_Lista_Simple
             }
             
             return NULL;
-            /*
-            Nodo* seleccionado = primero;
-            
-            while(seleccionado != NULL)
-            {
-                if(seleccionado->datoNodo() == destino)
-                {
-                    return seleccionado;
-                }
-                seleccionado = seleccionado->enlaceNodo();
-            }
-            */
         }
         Nodo* buscarPosicion(int posicion)
         {
-            Nodo* actual = primero;
+            Nodo* indice;
+            int i;
             
-            for(int i = 0; i < posicion; i++)
+            if(posicion <=0)
             {
-                actual = actual->enlaceNodo();
+                return NULL;
             }
             
-            return actual;
+            indice = primero;
+            
+            for(int i = 1; (i < posicion) && (indice != NULL); i++)
+            {
+                indice = indice->enlaceNodo();    
+            }
+            
+            return indice;
         }
         void eliminar(Dato entrada)
         {
+            Nodo *actual = primero, *anterior = NULL;
+            bool encontrado  = false;
+            
+            while((actual != NULL) && (!encontrado))
+            {
+                encontrado = (actual->datoNodo() == entrada);
+                
+                if(!encontrado)
+                {
+                    anterior = actual;
+                    actual = actual->enlaceNodo();
+                }
+                
+            }
+            
+            if(actual != NULL)
+            {
+                if(actual == primero)
+                {
+                    primero = actual->enlaceNodo();
+                }
+                else
+                {
+                    anterior->ponerEnlace(actual->enlaceNodo());
+                }
+                delete actual;
+            }
             
         }
         void mostrar()
@@ -159,6 +175,7 @@ int main()
     cin>>valor;
     
     Nodo* primero = new Nodo(valor);
+    Nodo* n;
     
     l.crearLista(primero);
     
@@ -173,9 +190,20 @@ int main()
     
     l.insertarUltimo(29);
     
-    l.insertarLista(l.buscarLista(19), 999);
+    n = l.buscarLista(19);
+    
+    if(n == NULL)
+    {
+    	cout<<"El valor no se encuentra en la lista!"<<endl;
+	}
+    else
+    {
+    	l.insertarLista(n, 999);
+	}
     
     l.insertarLista(l.buscarPosicion(2), 777);
+    
+    l.eliminar(29);
     
     l.mostrar();
     
