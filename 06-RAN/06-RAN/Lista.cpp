@@ -166,6 +166,16 @@ class TDA_Lista_Simple
         }
 };
 
+class TDA_Lista_Simple_Ordenada : public: TDA_Lista_Simple{
+	
+	public:
+		void insertaOrden()
+		{
+			
+		}
+	
+};
+
 int main()
 {
     Dato valor;
