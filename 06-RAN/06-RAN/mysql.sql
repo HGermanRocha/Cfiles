@@ -42,3 +42,25 @@ SELECT AVG(promedio) as 'Promedio general' from bd.alumnos;
 SELECT MIN(promedio) as 'Promedio general' from bd.alumnos;
 
 SELECT COUNT(*) carrera from bd.alumnos WHERE carrera="mecatronica";
+/*
+create database bd;
+
+use bd;
+
+
+CREATE TABLE bd.policy
+(
+	policyNumber VARCHAR(25) NOT NULL,
+	dateIssued DATE,
+	policyType VARCHAR(25),
+	customerNumber VARCHAR(25) NOT NULL,
+	commisionRate VARCHAR(25) NOT NULL,
+	maturityDate DATE NOT NULL,
+	PRIMARY KEY (policyNumber)
+);
+
+select * from bd.policy;
+
+INSERT INTO bd.policy (policyNumber, dateIssued, policyType, customerNumber,commisionRate, maturityDate) VALUES('V213748', 02/29/1989, "E20", "HAYES01","12%", 02/29/2009);
+INSERT INTO bd.policy (policyNumber, dateIssued, policyType, customerNumber,commisionRate, maturityDate) VALUES('N065987', 02/29/1989, "E20", "HAYES01","12%", 02/29/2009);
+*/
